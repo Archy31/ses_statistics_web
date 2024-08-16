@@ -5,3 +5,7 @@ init:
 run:
 	cd back && uvicorn main:app --reload
 	cd ../front streamlit run main.py
+
+start:
+	init
+	run
