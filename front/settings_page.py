@@ -1,4 +1,5 @@
 import streamlit as st
 
 def settings():
-    st.button("Text")
+    pass
+    # st.button("Text")

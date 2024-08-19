@@ -123,4 +123,9 @@ def first():
     
 
 def statistics():
+    st.tabs(
+        [
+            "📈 Chart", "BaseLines", "Standard deviation"
+        ]
+    )
     first()
