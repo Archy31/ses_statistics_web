@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit import config as st_config
 from streamlit_option_menu import option_menu
+from streamlit_extras.stylable_container import stylable_container
 
 import home_page, statistics_page, settings_page, upload_page
 
@@ -21,6 +22,13 @@ def __set_page_configs():
                     #MainMenu {visibility: hidden;}
                     footer {visibility: hidden;}
                     header {visibility: hidden;}
+                    
+                    .block-container {
+                        padding-top: 1rem;
+                        padding-bottom: 0rem;
+                        padding-left: 5rem;
+                        padding-right: 5rem;
+                    }
                     </style>
                     """
     st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -28,27 +36,44 @@ def __set_page_configs():
 
 def __theme_switcher():
     if 'theme_label' not in st.session_state:
-        st.session_state['theme_label'] = 'Light'
+        st.session_state['theme_label'] = '☀️'
+        st.session_state['backgroundColor'] = '#3C7EC9'
 
-    if st.button(st.session_state['theme_label'], key="theme_switcher", help="Theme switcher"):
-        if st.session_state["theme"] == "light":        # DARK THEME
-            st.session_state["theme"] = "dark"
-            st.session_state['theme_label'] = 'Light'
-            st_config.set_option("theme.base", "dark")
-            st_config.set_option("theme.backgroundColor", "#697565")
-            st_config.set_option("theme.primaryColor", "#3C3D37")
-            st_config.set_option("theme.secondaryBackgroundColor", "#ECDFCC")
-            st_config.set_option("theme.textColor", "#1E201E")
-        else:                                           # LIGHT THEME
-            st.session_state["theme"] = "light"
-            st.session_state['theme_label'] = 'Dark'
-            st_config.set_option("theme.base", "light")
-            st_config.set_option("theme.backgroundColor", "#4A90E2")
-            st_config.set_option("theme.primaryColor", "#34626C")
-            st_config.set_option("theme.secondaryBackgroundColor", "#D9E2EF")
-            st_config.set_option("theme.textColor", "#333333")
+    with stylable_container(
+        key="theme_switcher",
+        css_styles=f"""
+            button {{
+                background-color: {st.session_state['backgroundColor']};
+                color: yellow;
+                border-radius: 10px;
+                width: 80px;    
+                height: 20px;    
+                padding: 10px 20px; 
+                font-size: 10px;
+            }}
+            """
+        ):
+        if st.button(st.session_state['theme_label'], key="theme_switcher"):
+            if st.session_state["theme"] == "light":        # DARK THEME
+                st.session_state["theme"] = "dark"
+                st.session_state['theme_label'] = '☀️'
+                st.session_state['backgroundColor'] = '#3C7EC9'
+                st_config.set_option("theme.base", "dark")
+                st_config.set_option("theme.backgroundColor", "#697565")
+                st_config.set_option("theme.primaryColor", "#3C3D37")
+                st_config.set_option("theme.secondaryBackgroundColor", "#ECDFCC")
+                st_config.set_option("theme.textColor", "#1E201E")
+            else:                                           # LIGHT THEME
+                st.session_state["theme"] = "light"
+                st.session_state['theme_label'] = '🌕️'
+                st.session_state['backgroundColor'] = '#191970'
+                st_config.set_option("theme.base", "light")
+                st_config.set_option("theme.backgroundColor", "#4A90E2")
+                st_config.set_option("theme.primaryColor", "#34626C")
+                st_config.set_option("theme.secondaryBackgroundColor", "#D9E2EF")
+                st_config.set_option("theme.textColor", "#333333")
 
-        st.rerun()
+            st.rerun()
 
     # st.markdown(
     #     """
@@ -87,15 +112,29 @@ def __language_switcher():
     if 'lang_label' not in st.session_state:
         st.session_state['lang_label'] = 'RU'
 
-    with st.popover(st.session_state['lang_label'],  help="Language switcher"):
-        chd_lang = st.radio(
-            "Select language:",
-            ['***KG***', '***RU***', '***EN***']
-        )
-        if chd_lang:
+    with stylable_container(
+        key="lang_switcher",
+        css_styles="""
+            button {
+                background-color: #697565;
+                color: #ECDFCC;
+                border-radius: 10px;
+                width: 80px;    
+                height: 20px;    
+                padding: 10px 20px; 
+                font-size: 10px;
+            }
+            """
+        ):
+        with st.popover(st.session_state['lang_label']):
+            chd_lang = st.radio(
+                "Select language:",
+                ['***KG***', '***RU***', '***EN***']
+            )
+
             st.session_state['lang_label'] = chd_lang
 
-    # st.rerun()
+            # st.rerun()
 
 
 
@@ -110,7 +149,7 @@ def __set_head():
         col1.header(
             """
             :red[SES]
-            :red[S]eysmikalık okuyalar jonundo :red[E]skertuu :red[S]isteması.
+            :red[S]eysmikalyk okuyalar jonundo erte :red[E]skertuu :red[S]istemasy.
             """,
             # divider="red",
             anchor=False,
