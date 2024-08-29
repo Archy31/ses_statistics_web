@@ -11,7 +11,7 @@ def home():
     map_data = pd.DataFrame({
         'lat': [42.85412262672435],
         'lon': [74.5333091110194],
-        'hover': ["CAIAG (ЦАИИЗ)"],
+        'hover': ["CAIAG (ЦАИИЗ)"]
     })
     
     col1, col2 = st.columns([7, 7])

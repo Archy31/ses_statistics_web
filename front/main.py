@@ -53,7 +53,7 @@ def __theme_switcher():
             }}
             """
         ):
-        if st.button(st.session_state['theme_label'], key="theme_switcher"):
+        if st.button(st.session_state['theme_label'], key="theme_switcher", help="Theme switcher"):
             if st.session_state["theme"] == "light":        # DARK THEME
                 st.session_state["theme"] = "dark"
                 st.session_state['theme_label'] = '☀️'
@@ -68,9 +68,9 @@ def __theme_switcher():
                 st.session_state['theme_label'] = '🌕️'
                 st.session_state['backgroundColor'] = '#191970'
                 st_config.set_option("theme.base", "light")
-                st_config.set_option("theme.backgroundColor", "#4A90E2")
-                st_config.set_option("theme.primaryColor", "#34626C")
-                st_config.set_option("theme.secondaryBackgroundColor", "#D9E2EF")
+                st_config.set_option("theme.backgroundColor", "#FEFAE0")
+                st_config.set_option("theme.primaryColor", "#A6B37D")
+                st_config.set_option("theme.secondaryBackgroundColor", "#E0E5B6")
                 st_config.set_option("theme.textColor", "#333333")
 
             st.rerun()
@@ -126,7 +126,7 @@ def __language_switcher():
             }
             """
         ):
-        with st.popover(st.session_state['lang_label']):
+        with st.popover(st.session_state['lang_label'], help="Language switcher"):
             chd_lang = st.radio(
                 "Select language:",
                 ['***KG***', '***RU***', '***EN***']
