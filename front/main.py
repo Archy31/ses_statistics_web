@@ -149,7 +149,7 @@ def __set_head():
         col1.header(
             """
             :red[SES]
-            :red[S]eysmikalyk okuyalar jonundo erte :red[E]skertuu :red[S]istemasy.
+            :red[S]eysmikalyk okuyalar jonundo erte :red[E]skertuu :red[S]istemasy
             """,
             # divider="red",
             anchor=False,
