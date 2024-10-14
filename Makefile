@@ -1,10 +1,10 @@
 init:
-	./venv/bin/activate
+	venv/bin/activate
 	pip install -r requirements.txt
 
 run:
-	cd back && uvicorn main:app --reload
-	cd ../front streamlit run main.py
+	cd back_gin/ && bash ./ses_back
+	streamlit run ./frontmain.py
 
 start:
 	init
