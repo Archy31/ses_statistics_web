@@ -1,4 +1,5 @@
 import pandas as pd 
+import numpy as np 
 
 import streamlit as st
 from streamlit_lightweight_charts import renderLightweightCharts
@@ -126,7 +127,14 @@ def first():
     
 
 def __gutenberg_richter(form: st, data: pd.DataFrame = None):
-    fig = px.line(data, x="Magnitude", y="Count", title="Gutenberg-Richter magnitude")
+    chart_data = data.groupby('magnitude').size().reset_index(name='Count')
+    chart_data = chart_data.sort_values(by='magnitude', ascending=False)
+    chart_data['Cumulative_Count'] = chart_data['Count'].cumsum()
+    chart_data['Log_Cumulative_Count'] = np.log10(chart_data['Cumulative_Count'])
+    
+    chart_data.rename(columns={'magnitude': 'Magnitude'}, inplace=True)   
+    
+    fig = px.line(chart_data, x="Magnitude", y="Count")
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
     
 

@@ -16,10 +16,7 @@ def home():
         search=Search(column="event_status", value="Новое")
     )
     # table_data = get_by_filter(filter=filter)
-    table_data = get_all_data()
-    
-    chart_data = table_data.groupby('magnitude').size().reset_index(name='Count')
-    chart_data.rename(columns={'magnitude': 'Magnitude'}, inplace=True)   
+    table_data = get_all_data()   
     
     map_data = pd.DataFrame({
         'lat': [42.85412262672435],
@@ -44,4 +41,4 @@ def home():
             
         with col2:
             ctr = st.container(border=True)
-            statistics(form=ctr, data=chart_data)
+            statistics(form=ctr, data=table_data)
