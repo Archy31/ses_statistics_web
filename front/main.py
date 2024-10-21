@@ -173,16 +173,18 @@ def main():
     #                    icons=['house', 'cloud-upload', "list-task", 'gear'],
     #                    menu_icon="cast", default_index=0, orientation="horizontal")
 
-    page = option_menu(None, ["Home", "Statistics"],
-                       icons=['house', "list-task"],
-                       menu_icon="cast", default_index=0, orientation="horizontal")
+    # page = option_menu(None, ["Home", "Statistics"],
+    #                    icons=['house', "list-task"],
+    #                    menu_icon="cast", default_index=0, orientation="horizontal")
 
-    match page:
-        case "Home":
-            home_page.home()
+    # match page:
+    #     case "Home":
+    #         home_page.home()
 
-        case "Statistics":
-            statistics_page.statistics()
+    #     case "Statistics":
+    #         statistics_page.statistics()
+    home_page.home()
+    
 
     # from PIL import Image
     #

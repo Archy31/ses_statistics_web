@@ -1,6 +1,9 @@
+import pandas as pd 
+
 import streamlit as st
 from streamlit_lightweight_charts import renderLightweightCharts
 import streamlit_lightweight_charts.dataSamples as data
+import plotly.express as px
 
 
 def first():
@@ -122,10 +125,22 @@ def first():
     ], 'baseline')
     
 
-def statistics():
-    st.tabs(
-        [
-            "📈 Chart", "BaseLines", "Standard deviation"
-        ]
+def __gutenberg_richter(form: st, data: pd.DataFrame = None):
+    fig = px.line(data, x="Magnitude", y="Count", title="Gutenberg-Richter magnitude")
+    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+    
+
+def statistics(form: st, data: pd.DataFrame):
+    charts = {
+        "Gutenberg-Richter magnitude": __gutenberg_richter,
+        
+    }
+    
+    std_chart = form.selectbox(
+        "Select chart type:",
+        ("Not selected", "Gutenberg-Richter magnitude", "Quadrangle"),
     )
-    first()
+    
+    if std_chart in charts.keys():
+        charts[std_chart](form=form, data=data)
+

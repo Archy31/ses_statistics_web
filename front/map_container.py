@@ -63,6 +63,7 @@ def __get_map_url(form: st, layers: dict) -> str:
                 return layers[layer_type]
 
 
+
 def data_mapping(data: pd.DataFrame):
     with st.container(border=True):
         layer = __get_map_url(form=st, layers=LAYERS)
