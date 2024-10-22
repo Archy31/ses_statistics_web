@@ -134,21 +134,48 @@ def __gutenberg_richter(form: st, data: pd.DataFrame = None):
     
     chart_data.rename(columns={'magnitude': 'Magnitude'}, inplace=True)   
     
-    fig = px.line(chart_data, x="Magnitude", y="Count")
+    fig = px.line(
+        data_frame=chart_data, 
+        x="Magnitude",
+        y="Count", 
+        color_discrete_sequence=['red']
+        )
+    fig.update_traces(name="Count")
+    fig.add_scatter(
+        x=chart_data['Magnitude'],
+        y=chart_data['Cumulative_Count'], 
+        name="Cumulative count",
+        mode='lines',
+        line=dict(color='blue', width=2)
+        )
+    fig.add_scatter(
+        x=chart_data['Magnitude'], 
+        y=chart_data['Log_Cumulative_Count'], 
+        name="logarithmic cumulative count",
+        mode='lines',
+        line=dict(color='green', width=2)
+        )
+    
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+
+def __test(form: st, data: pd.DataFrame):
+    pass
     
 
 def statistics(form: st, data: pd.DataFrame):
     charts = {
         "Gutenberg-Richter magnitude": __gutenberg_richter,
-        
+        "Quadrangle": __test, 
+        "Shear wave velocity": __test,
     }
     
+    options = charts.keys()
+    
     std_chart = form.selectbox(
-        "Select chart type:",
-        ("Not selected", "Gutenberg-Richter magnitude", "Quadrangle"),
+        label="Select chart type:",
+        options=options,
     )
     
-    if std_chart in charts.keys():
-        charts[std_chart](form=form, data=data)
+    charts[std_chart](form=form, data=data)
 

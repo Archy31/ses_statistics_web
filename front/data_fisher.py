@@ -52,6 +52,10 @@ def __format_date_time(data: pd.DataFrame) -> Any:
             lambda x: x.split('T')[1][:-1] if pd.notnull(x) else None
         )
         
+        data['last_phase_time'] = data['last_phase_time'].apply(
+            lambda x: x.split('T')[1][:-1] if pd.notnull(x) else None
+        )
+        
         return data
     
     except Exception as __ex:
@@ -102,7 +106,7 @@ def get_all_data(url: str = URL) -> Any:
             data = __format_float_nums(data=data, columns=['magnitude'])  
             data = __format_str(data=data, columns=['latitude', 'longitude'])     
             
-            return data[['reg_date', 'reg_time', 'magnitude', 'latitude', 'longitude']]
+            return data
         
         return respo.status_code
     
